@@ -1,0 +1,58 @@
+<div class="modal-header modal-lg d-flex justify-content-center">
+    <h5 *ngIf="!editMode" id="modalLabel">CADASTRAR EMPRESA</h5>
+    <h5 *ngIf="editMode" id="modalLabel">EDITAR EMPRESA</h5>
+</div>
+<div class="modal-body text-center">
+    <form #formEmpresas="ngForm" class="px-5">
+        <div class="row mt-2">
+            <span [innerHTML]="mensagemErro"></span>
+            <div class="col-3">
+                <label for="empresa" class="sg-label">Empresa:</label>
+            </div>
+            <div class="col">
+                <input type="text" name="empresa" maxlength="255" ngModel id="empresa" class="sg-input" required  placeholder="Nome da Empresa">
+            </div>
+            <hr>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">
+                <label for="cod_projeto" class="sg-label">Projeto:</label>
+            </div>
+            <div class="col">
+                <select class="sg-select" name="cod_projeto" ngModel required>
+                    <option *ngFor="let empresa of projetos_unicos" [value]="empresa.cod_projeto">{{ empresa.projeto }}
+                    </option>
+                </select>
+            </div>
+            <hr>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">
+                <label for="cnpj" class="sg-label">CNPJ:</label>
+            </div>
+            <div class="col">
+                <input type="text" name="cnpj" maxlength="18" required ngModel class="sg-input"
+                    mask="00.000.000/0000-00"  placeholder="00.000.000/0000-00">
+            </div>
+            <hr>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">
+                <label for="safegold_ger" class="sg-gerencia">Safegold gerencia essa empresa?</label>
+            </div>
+            <div class="col">
+                <select class="sg-select" name="safegold_ger" ngModel required>
+                    <option value="1">SIM</option>
+                    <option value="0">NÃO</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer justify-content-center align-items-center">
+    <button *ngIf="!editMode" type="submit" class="btn btn-primary mx-2" (click)="SalvarForm(formEmpresas.value)"
+        [disabled]="!formEmpresas.valid">Salvar</button>
+    <button *ngIf="editMode" type="submit" class="btn btn-warning mx-2" (click)="SalvarForm(formEmpresas.value)"
+        [disabled]="!formEmpresas.valid">Atualizar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Fechar</button>
+</div>
